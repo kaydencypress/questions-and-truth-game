@@ -5,7 +5,7 @@ Inspired by the final game "Questions and Truth" in Season 2 Episode 12 of the N
 The player asks questions to attempt to deduce the computer's hand of cards in as few rounds as possible. The player wins the game by correctly guessing the value of the cards and their order. 
 
 ## Rules
-* The computer selects 8 cards from a standard de*ck of 52 playing cards (excluding jokers).
+* The computer selects 8 cards from a standard deck of 52 playing cards (excluding jokers).
 * The computer choses an order to arrange the cards.
 * Cards within the same suit must be arranged from lowest value to highest value from left to right, but do not need to be adjacent to each other.
 * Cards of different suits do not need to be arranged in ascending order relative to each other.
