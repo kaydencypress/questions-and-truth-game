@@ -17,19 +17,20 @@ The player asks questions to attempt to deduce the computer's hand of cards in a
 
 ## Available questions
 1. Sum
-    1. What is the sum of cards in positions \[X\], \[Y\], and \[Z\]?
-    2. What is the total sum of cards of \[suit\]?
+    1. What is the sum of cards in three specified positions (1-8)?
+    2. What is the total sum of cards of the specified suit?
     3. What is the total sum of face cards (Aces, Jacks, Queens, Kings)?
     4. What is the total sum of the number cards (2 - 10)?
 2. Count
     1. What is the total count of face cards (Aces, Jacks, Queens, Kings)?
     2. What is the total count of the number cards (2 - 10)?
-    3. What is the total count of cards with value \[X\]?
+    3. What is the total count of cards with the specified value (1-13)?
 3. Position
-    1. Which positions contain cards of \[suit\]?
+    1. Which positions contain cards of the specified suit?
     2. Which positions contain cards with the same value?
     3. Which positions contain cards with consecutive values?
-    4. Which position(s) contains the card(s) with the \[highest\|lowest\] value?
+    4. Which position(s) contains the card(s) with the highest value?
+    5. Which position(s) contains the card(s) with the lowest value?
 
 ## Differences from the original game
 This implementation is a 1-player game vs a computer instead of a 2-player game. The player chooses "Question" or "Truth" each round, instead of betting tokens vs their opponent for the opportunitity to play the round.
@@ -40,4 +41,5 @@ This implementation is a 1-player game vs a computer instead of a 2-player game.
     * Compare the minimum number of rounds vs the total rounds played at the conclusion of the game.
 * Option to enforce a time limit per round.
 * Option to require guessing the suit of each card in addition to its value.
+* Add frontend UI.
 * Add 2-player version of the game (player vs player and/or player vs computer).
