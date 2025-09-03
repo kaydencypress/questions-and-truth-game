@@ -154,7 +154,7 @@ func GetPositionsOfLowestCards(hand cards.Hand, _ []int) string {
 			continue
 		}
 
-		if card.Value < lowestVal {
+		if card.Value < lowestVal || lowestVal == 0 {
 			lowestVal = card.Value
 			positions = []int{i + 1} // overwrite
 		}
