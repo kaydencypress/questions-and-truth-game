@@ -1,16 +1,18 @@
 package main
 
 import (
+	"fmt"
+
 	"example.com/questions-and-truth/cards"
 	"example.com/questions-and-truth/questions"
+	"example.com/questions-and-truth/truth"
 )
 
 func main() {
 	// Choose random cards for hand from standard deck of 52 cards and initialize questions
-	deck := cards.NewDeck()
-	deck.ShuffleDeck()
-	questionSet := questions.InitializeQuestions(deck)
-	hand, err := cards.NewHand(&deck, 8)
+	cards.GameDeck.ShuffleDeck()
+	questionSet := questions.InitializeQuestions()
+	hand, err := cards.NewHand(&cards.GameDeck, 8)
 
 	if err != nil {
 		panic(err)
@@ -29,6 +31,17 @@ func main() {
 	}
 
 	// If truth:
-	// TODO: Prompt user for guess
-	// TODO: Check if guess is correct
+	// Prompt user for guess
+	guess, err := truth.GetUserGuess(hand)
+	if err != nil {
+		panic(err)
+	}
+	// Check if guess is correct
+	isGuessCorrect := truth.IsGuessCorrect(guess, hand)
+
+	if isGuessCorrect {
+		fmt.Println("Correct - You won!")
+	} else {
+		fmt.Println("Incorrect - You lose.")
+	}
 }

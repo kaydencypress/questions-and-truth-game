@@ -23,9 +23,9 @@ func NewQuestion(id int, text string, prompts []menus.Prompt, getAnswer AnswerFu
 	}
 }
 
-func InitializeQuestions(deck cards.Deck) []Question {
+func InitializeQuestions() []Question {
 	suitPromptText := ""
-	for _, suit := range deck.Suits {
+	for _, suit := range cards.GameDeck.Suits {
 		suitPromptText += fmt.Sprintf("%d. %s\n", suit.ID, suit.Name)
 	}
 	suitPromptText += "Select a suit (1-4): "

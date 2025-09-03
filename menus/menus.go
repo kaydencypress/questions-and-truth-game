@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"slices"
 	"strconv"
+
+	"example.com/questions-and-truth/cards"
 )
 
 type Prompt struct {
@@ -56,4 +58,64 @@ func GetAllUserInputsAsInt(prompts []Prompt) ([]int, error) {
 		userMenuSelections[i] = selection
 	}
 	return userMenuSelections, nil
+}
+
+func GetUserCardInput(prompt Prompt) (int, *cards.Suit, error) {
+	// display prompt
+	fmt.Print(prompt.Text)
+
+	// get user selection as string
+	var selectionStr string
+	fmt.Scan(&selectionStr)
+
+	if len(selectionStr) < 2 {
+		return 0, nil, errors.New("invalid input, not enough characters")
+	}
+
+	// parse and validate suit and card value
+	suitStr := selectionStr[len(selectionStr)-1:]
+	suit, err := parseSuitInput(suitStr)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	cardValStr := selectionStr[:len(selectionStr)-1]
+	cardVal, err := parseIntInput(cardValStr, prompt.MaxValue)
+	if err != nil {
+		return 0, nil, err
+	}
+
+	return cardVal, suit, nil
+}
+
+func parseIntInput(input string, maxVal int) (int, error) {
+	// parse integer
+	inputInt, err := strconv.Atoi(input)
+
+	if err != nil {
+		return 0, err
+	}
+
+	// validate input is in valid range
+	if inputInt < 1 || inputInt > maxVal {
+		errMessage := fmt.Sprintf("invalid input, must be an integer between 1 and %d", maxVal)
+		return 0, errors.New(errMessage)
+	}
+	return inputInt, nil
+}
+
+func parseSuitInput(input string) (*cards.Suit, error) {
+	// validate input is a single character
+	if len(input) != 1 {
+		return nil, errors.New("invalid input for suit, must be a single character")
+	}
+
+	// validate input matches the first character of a valid suit
+	for _, suit := range cards.GameDeck.Suits {
+		if input == suit.Name[0:1] {
+			return &suit, nil
+		}
+	}
+
+	return nil, errors.New("invalid input, does not match first letter of any suit")
 }

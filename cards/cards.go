@@ -5,12 +5,7 @@ import (
 	"math/rand"
 )
 
-type Card struct {
-	Suit       Suit
-	Value      int
-	IsFaceCard bool
-	FaceValue  string
-}
+var GameDeck = NewDeck()
 
 type Deck struct {
 	AvailableCards []Card
@@ -22,6 +17,31 @@ type Suit struct {
 	Name string
 }
 
+type Card struct {
+	Suit       Suit
+	Value      int
+	IsFaceCard bool
+	FaceValue  string
+}
+
+func NewCard(suit Suit, val int) Card {
+	var faceValueMap = map[int]string{
+		1:  "Ace",
+		11: "Jack",
+		12: "Queen",
+		13: "King",
+	}
+
+	faceVal, isFaceCard := faceValueMap[val]
+
+	return Card{
+		Suit:       suit,
+		Value:      val,
+		IsFaceCard: isFaceCard,
+		FaceValue:  faceVal,
+	}
+}
+
 func NewDeck() Deck {
 	suits := []Suit{
 		{ID: 1, Name: "Clubs"},
@@ -30,22 +50,10 @@ func NewDeck() Deck {
 		{ID: 4, Name: "Spades"},
 	}
 	var cards = make([]Card, 0, 52)
-	var faceValueMap = map[int]string{
-		1:  "Ace",
-		11: "Jack",
-		12: "Queen",
-		13: "King",
-	}
 
 	for _, suit := range suits {
 		for val := 1; val <= 13; val++ {
-			faceVal, isFaceCard := faceValueMap[val]
-			cards = append(cards, Card{
-				Suit:       suit,
-				Value:      val,
-				IsFaceCard: isFaceCard,
-				FaceValue:  faceVal,
-			})
+			cards = append(cards, NewCard(suit, val))
 		}
 	}
 	return Deck{
