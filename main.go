@@ -22,14 +22,11 @@ func main() {
 	// TODO: menu to select a question or guess truth & loop
 
 	// If Question:
-	// Prompt user to select question and input for additional prompts if required
-	question, err := questions.DisplayQuestionMenu(questionSet)
+	// Prompt user to select a question and print answer
+	err = questions.SelectQuestionAndGetAnswer(questionSet, hand)
 	if err != nil {
 		panic(err)
 	}
-
-	// TODO: Determine answer
-	question.GetAnswer()
 
 	// If truth:
 	// TODO: Prompt user for guess

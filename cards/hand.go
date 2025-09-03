@@ -67,9 +67,10 @@ func (hand *Hand) ReorderHand() {
 		cardsBySuit[chosenSuit] = cardsBySuit[chosenSuit][1:]
 	}
 
-	fmt.Println("Newly arranged hand: ")
-	for _, card := range newHand {
+	*hand = newHand
+
+	fmt.Println("Rearranging hand like so: ")
+	for _, card := range *hand {
 		fmt.Println(card.Value, card.Suit.Name)
 	}
-	hand = &newHand
 }
