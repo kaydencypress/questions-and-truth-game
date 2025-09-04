@@ -75,19 +75,20 @@ func SelectQuestionAndGetAnswer(questions []Question, hand cards.Hand) error {
 }
 
 func SelectQuestion(questions []Question) (*Question, error) {
-	// prepare question menu prompt
-	var menuText string
+	// print available questions
+	fmt.Printf("\nAvailable questions:\n")
 	for _, q := range questions {
-		menuText += fmt.Sprintf("%d. %s\n", q.ID, q.Text)
+		fmt.Printf("%d. %s\n", q.ID, q.Text)
 	}
-	menuText += fmt.Sprintf("Select a question (1-%d): ", len(questions))
-	prompt := menus.NewPrompt(menuText, len(questions))
 
-	// collect user's selection
+	// prompt for user's selection
+	promptText := fmt.Sprintf("Select a question (1-%d): ", len(questions))
+	prompt := menus.NewPrompt(promptText, len(questions))
 	selection, err := menus.GetUserInputAsInt(prompt)
 	if err != nil {
 		return nil, err
 	}
+
 	selectedQuestion := questions[selection-1]
 	return &selectedQuestion, nil
 }
