@@ -123,7 +123,7 @@ func parseSuitInput(input string) (*cards.Suit, error) {
 }
 
 func SelectQuestionOrTruth() (int, error) {
-	fmt.Printf("\nAsk a question or guess the truth\n1. Question\n2. Truth\n")
-	prompt := NewPrompt("Select option (1-2): ", 2)
+	fmt.Printf("\nAsk a question or guess the truth\n1. Question\n2. Truth\n3. Exit\n")
+	prompt := NewPrompt("Select option (1-3): ", 3)
 	return GetUserInputAsInt(prompt)
 }

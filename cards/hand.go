@@ -1,7 +1,6 @@
 package cards
 
 import (
-	"fmt"
 	"math/rand"
 	"sort"
 )
@@ -68,9 +67,4 @@ func (hand *Hand) ReorderHand() {
 	}
 
 	*hand = newHand
-
-	fmt.Println("Rearranging hand like so: ")
-	for _, card := range *hand {
-		fmt.Println(card.Value, card.Suit.Name)
-	}
 }

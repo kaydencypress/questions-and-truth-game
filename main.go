@@ -31,12 +31,13 @@ func main() {
 			continue
 		}
 
-		if selection == 0 {
-			break
+		// Exit program
+		if selection == 3 {
+			return
 		}
 
+		// "Question" selected
 		if selection == 1 {
-			// If Question:
 			// Prompt user to select a question and print answer
 			err = questions.SelectQuestionAndGetAnswer(questionSet, hand)
 			if err != nil {
@@ -45,9 +46,9 @@ func main() {
 			}
 		}
 
-		// If truth:
-		// Prompt user for guess
+		// "Truth" selected
 		if selection == 2 {
+			// Prompt user for guess
 			guess, err := truth.GetUserGuess(hand)
 			if err != nil {
 				fmt.Println(err)
