@@ -10,7 +10,7 @@ var handWithMatches = cards.Hand{
 	cards.NewCard(cards.Clubs, 2),
 	cards.NewCard(cards.Spades, 1),
 	cards.NewCard(cards.Spades, 9),
-	cards.NewCard(cards.Diamonds, 10),
+	cards.NewCard(cards.Diamonds, 1),
 	cards.NewCard(cards.Clubs, 7),
 	cards.NewCard(cards.Diamonds, 11),
 	cards.NewCard(cards.Hearts, 12),
@@ -37,6 +37,17 @@ var handOnlyFaceCards = cards.Hand{
 	cards.NewCard(cards.Diamonds, 13),
 	cards.NewCard(cards.Spades, 12),
 	cards.NewCard(cards.Hearts, 1),
+}
+
+var handOnlyNumberCards = cards.Hand{
+	cards.NewCard(cards.Clubs, 3),
+	cards.NewCard(cards.Diamonds, 5),
+	cards.NewCard(cards.Clubs, 4),
+	cards.NewCard(cards.Spades, 8),
+	cards.NewCard(cards.Diamonds, 7),
+	cards.NewCard(cards.Diamonds, 9),
+	cards.NewCard(cards.Spades, 9),
+	cards.NewCard(cards.Hearts, 2),
 }
 
 type answerTest struct {
@@ -80,7 +91,7 @@ func TestGetSumOfFaceCards(t *testing.T) {
 	var tests = []answerTest{
 		{
 			name:   "GetSumOfFaceCards-matches",
-			want:   "35",
+			want:   "36",
 			hand:   handWithMatches,
 			inputs: []int{},
 		},
@@ -98,7 +109,7 @@ func TestGetSumOfNumberCards(t *testing.T) {
 	var tests = []answerTest{
 		{
 			name:   "GetSumOfNumberCards-matches",
-			want:   "28",
+			want:   "18",
 			hand:   handWithMatches,
 			inputs: []int{},
 		},
@@ -110,6 +121,42 @@ func TestGetSumOfNumberCards(t *testing.T) {
 		},
 	}
 	runTests(t, tests, GetSumOfNumberCards)
+}
+
+func TestGetCountOfFaceCards(t *testing.T) {
+	var tests = []answerTest{
+		{
+			name:   "GetCountOfFaceCards-matches",
+			want:   "5",
+			hand:   handWithMatches,
+			inputs: []int{},
+		},
+		{
+			name:   "GetCountOfFaceCards-no-matches",
+			want:   "0",
+			hand:   handOnlyNumberCards,
+			inputs: []int{},
+		},
+	}
+	runTests(t, tests, GetCountOfFaceCards)
+}
+
+func TestGetCountOfNumberCards(t *testing.T) {
+	var tests = []answerTest{
+		{
+			name:   "GetCountOfNumberCards-matches",
+			want:   "3",
+			hand:   handWithMatches,
+			inputs: []int{},
+		},
+		{
+			name:   "GetCountOfNumberCards-no-matches",
+			want:   "0",
+			hand:   handOnlyFaceCards,
+			inputs: []int{},
+		},
+	}
+	runTests(t, tests, GetCountOfNumberCards)
 }
 
 func runTests(t *testing.T, tests []answerTest, testFunc func(cards.Hand, []int) string) {
