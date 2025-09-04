@@ -5,7 +5,13 @@ import (
 	"math/rand"
 )
 
-var GameDeck = NewDeck()
+var Clubs = Suit{ID: 1, Name: "Clubs"}
+var Diamonds = Suit{ID: 2, Name: "Diamonds"}
+var Hearts = Suit{ID: 3, Name: "Hearts"}
+var Spades = Suit{ID: 4, Name: "Spades"}
+var Suits = []Suit{Clubs, Diamonds, Hearts, Spades}
+
+var GameDeck = NewDeck(Suits)
 
 type Deck struct {
 	AvailableCards []Card
@@ -42,13 +48,7 @@ func NewCard(suit Suit, val int) Card {
 	}
 }
 
-func NewDeck() Deck {
-	suits := []Suit{
-		{ID: 1, Name: "Clubs"},
-		{ID: 2, Name: "Diamonds"},
-		{ID: 3, Name: "Hearts"},
-		{ID: 4, Name: "Spades"},
-	}
+func NewDeck(suits []Suit) Deck {
 	var cards = make([]Card, 0, 52)
 
 	for _, suit := range suits {
