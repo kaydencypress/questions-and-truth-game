@@ -7,8 +7,8 @@ Download the binary for your operating system and architecture:
 * questions-and-truth-mac-amd64
 * questions-and-truth-linux-amd64
 * questions-and-truth-windows-arm64
-* questions-and-truth-windows-arm64
-* questions-and-truth-windows-arm64
+* questions-and-truth-mac-arm64
+* questions-and-truth-linux-arm64
 
 Then, run the executable to start the command line interface.
 
