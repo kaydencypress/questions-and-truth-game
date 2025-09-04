@@ -1,6 +1,19 @@
 # "Questions and Truth" Game
 Inspired by the final game "Questions and Truth" in Season 2 Episode 12 of the Netflix show "The Devil's Game".
 
+## Running the game
+Download the binary for your operating system and architecture:
+* questions-and-truth-windows-amd64
+* questions-and-truth-mac-amd64
+* questions-and-truth-linux-amd64
+* questions-and-truth-windows-arm64
+* questions-and-truth-windows-arm64
+* questions-and-truth-windows-arm64
+
+Then, run the executable to start the command line interface.
+
+Or if you have Go installed, you can download the source code and build your own executable using *go build*
+
 ## Winning the game
 The player asks questions to attempt to deduce the computer's hand of cards in as few rounds as possible. The player wins the game by correctly guessing the value of the cards and their order. 
 
