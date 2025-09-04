@@ -70,7 +70,7 @@ func SelectQuestionAndGetAnswer(questions []Question, hand cards.Hand) error {
 
 	// get answer and print result
 	result := selectedQuestion.GetAnswer(hand, userInputs)
-	fmt.Println("Answer: ", result)
+	fmt.Printf("\nAnswer: %v\n", result)
 	return nil
 }
 

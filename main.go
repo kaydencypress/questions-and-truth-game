@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"example.com/questions-and-truth/cards"
+	"example.com/questions-and-truth/menus"
 	"example.com/questions-and-truth/questions"
 	"example.com/questions-and-truth/truth"
 )
@@ -21,27 +22,47 @@ func main() {
 	// Select order of cards in hand
 	hand.ReorderHand()
 
-	// TODO: menu to select a question or guess truth & loop
+	// menu to select a question or guess truth
+	for {
+		selection, err := menus.SelectQuestionOrTruth()
 
-	// If Question:
-	// Prompt user to select a question and print answer
-	err = questions.SelectQuestionAndGetAnswer(questionSet, hand)
-	if err != nil {
-		panic(err)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+
+		if selection == 0 {
+			break
+		}
+
+		if selection == 1 {
+			// If Question:
+			// Prompt user to select a question and print answer
+			err = questions.SelectQuestionAndGetAnswer(questionSet, hand)
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+		}
+
+		// If truth:
+		// Prompt user for guess
+		if selection == 2 {
+			guess, err := truth.GetUserGuess(hand)
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			// Check if guess is correct
+			isGuessCorrect := truth.IsGuessCorrect(guess, hand)
+
+			if isGuessCorrect {
+				fmt.Println("Correct - You won!")
+				break
+			} else {
+				fmt.Println("Incorrect - Try again.")
+			}
+		}
 	}
 
-	// If truth:
-	// Prompt user for guess
-	guess, err := truth.GetUserGuess(hand)
-	if err != nil {
-		panic(err)
-	}
-	// Check if guess is correct
-	isGuessCorrect := truth.IsGuessCorrect(guess, hand)
-
-	if isGuessCorrect {
-		fmt.Println("Correct - You won!")
-	} else {
-		fmt.Println("Incorrect - You lose.")
-	}
 }

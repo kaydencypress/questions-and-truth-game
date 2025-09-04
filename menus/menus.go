@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"slices"
 	"strconv"
+	"strings"
 
 	"example.com/questions-and-truth/cards"
 )
@@ -74,6 +75,7 @@ func GetUserCardInput(prompt Prompt) (int, *cards.Suit, error) {
 
 	// parse and validate suit and card value
 	suitStr := selectionStr[len(selectionStr)-1:]
+	suitStr = strings.ToUpper(suitStr)
 	suit, err := parseSuitInput(suitStr)
 	if err != nil {
 		return 0, nil, err
@@ -118,4 +120,10 @@ func parseSuitInput(input string) (*cards.Suit, error) {
 	}
 
 	return nil, errors.New("invalid input, does not match first letter of any suit")
+}
+
+func SelectQuestionOrTruth() (int, error) {
+	fmt.Printf("\nAsk a question or guess the truth\n1. Question\n2. Truth\n")
+	prompt := NewPrompt("Select option (1-2): ", 2)
+	return GetUserInputAsInt(prompt)
 }

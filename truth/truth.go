@@ -29,7 +29,7 @@ Enter each card in format #S where # is the numerical card value (1-13), and S i
 	`)
 
 	for i := range hand {
-		promptText := fmt.Sprintf("Enter card %d: ", i)
+		promptText := fmt.Sprintf("Enter card %d: ", i+1)
 		prompt := menus.NewPrompt(promptText, 13)
 		guessedVal, guessedSuit, err := menus.GetUserCardInput(prompt)
 		if err != nil {
