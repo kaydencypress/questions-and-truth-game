@@ -20,7 +20,7 @@ var handWithMatches = cards.Hand{
 var handNoMatches = cards.Hand{
 	cards.NewCard(cards.Spades, 2),
 	cards.NewCard(cards.Spades, 4),
-	cards.NewCard(cards.Diamonds, 6),
+	cards.NewCard(cards.Diamonds, 5),
 	cards.NewCard(cards.Diamonds, 8),
 	cards.NewCard(cards.Clubs, 7),
 	cards.NewCard(cards.Spades, 6),
@@ -34,7 +34,7 @@ var handOnlyFaceCards = cards.Hand{
 	cards.NewCard(cards.Clubs, 11),
 	cards.NewCard(cards.Spades, 1),
 	cards.NewCard(cards.Diamonds, 12),
-	cards.NewCard(cards.Diamonds, 13),
+	cards.NewCard(cards.Diamonds, 13), // consecutive
 	cards.NewCard(cards.Spades, 12),
 	cards.NewCard(cards.Hearts, 1),
 }
@@ -42,11 +42,11 @@ var handOnlyFaceCards = cards.Hand{
 var handOnlyNumberCards = cards.Hand{
 	cards.NewCard(cards.Clubs, 3),
 	cards.NewCard(cards.Diamonds, 5),
-	cards.NewCard(cards.Clubs, 4),
+	cards.NewCard(cards.Clubs, 4), // consecutive
 	cards.NewCard(cards.Spades, 8),
 	cards.NewCard(cards.Diamonds, 7),
 	cards.NewCard(cards.Diamonds, 9),
-	cards.NewCard(cards.Spades, 9),
+	cards.NewCard(cards.Spades, 9), // consecutive
 	cards.NewCard(cards.Hearts, 2),
 }
 
@@ -157,6 +157,77 @@ func TestGetCountOfNumberCards(t *testing.T) {
 		},
 	}
 	runTests(t, tests, GetCountOfNumberCards)
+}
+
+func TestGetPositionsOfSuits(t *testing.T) {
+	var tests = []answerTest{
+		{
+			name:   "GetPositionsOfSuits-matches",
+			want:   "[1 5]\n",
+			hand:   handWithMatches,
+			inputs: []int{cards.Clubs.ID},
+		},
+		{
+			name:   "GetPositionsOfSuits-no-matches",
+			want:   "None",
+			hand:   handNoMatches,
+			inputs: []int{cards.Hearts.ID},
+		},
+	}
+	runTests(t, tests, GetPositionsOfSuits)
+}
+func TestGetPositionsOfConsecutiveCards(t *testing.T) {
+	var tests = []answerTest{
+		{
+			name:   "GetPositionsOfConsecutiveCards-matches",
+			want:   "[3 7]\n",
+			hand:   handOnlyNumberCards,
+			inputs: []int{},
+		},
+		{
+			name:   "GetPositionsOfConsecutiveCards-no-matches",
+			want:   "None",
+			hand:   handNoMatches,
+			inputs: []int{},
+		},
+	}
+	runTests(t, tests, GetPositionsOfConsecutiveCards)
+}
+
+func TestGetPositionsOfHighestCards(t *testing.T) {
+	var tests = []answerTest{
+		{
+			name:   "GetPositionsOfHighestCards-single",
+			want:   "[7]\n",
+			hand:   handWithMatches,
+			inputs: []int{},
+		},
+		{
+			name:   "GetPositionsOfHighestCards-multiple",
+			want:   "[6 7]\n",
+			hand:   handOnlyNumberCards,
+			inputs: []int{},
+		},
+	}
+	runTests(t, tests, GetPositionsOfHighestCards)
+}
+
+func TestGetPositionsOfLowestCards(t *testing.T) {
+	var tests = []answerTest{
+		{
+			name:   "GetPositionsOfLowestCards-single",
+			want:   "[8]\n",
+			hand:   handOnlyNumberCards,
+			inputs: []int{},
+		},
+		{
+			name:   "GetPositionsOfLowestCards-multiple",
+			want:   "[2 4]\n",
+			hand:   handWithMatches,
+			inputs: []int{},
+		},
+	}
+	runTests(t, tests, GetPositionsOfLowestCards)
 }
 
 func runTests(t *testing.T, tests []answerTest, testFunc func(cards.Hand, []int) string) {
